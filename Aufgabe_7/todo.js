@@ -31,6 +31,16 @@ export class ToDo extends EventTarget {
     const spanElement = document.createElement('span');
     const buttonElement = document.createElement('button');
 
+    checkboxElement.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        listElement.className = 'erledigt';
+        this.#erledigt = 'true';
+      } else {
+        listElement.className = '';
+        this.erledigt = 'false';
+      }
+    });
+
     listElement.appendChild(divElement);
 
     divElement.appendChild(checkboxElement);

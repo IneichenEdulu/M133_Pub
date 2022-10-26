@@ -1,9 +1,9 @@
 import { ToDo } from './todo.js';
 
 let todos = [
-  new ToDo('Zugticket kaufen', false),
-  new ToDo('Wäsche waschen', true),
-  new ToDo('Hausaufgaben machen', true),
+  // new ToDo('Zugticket kaufen', false),
+  // new ToDo('Wäsche waschen', true),
+  // new ToDo('Hausaufgaben machen', true),
 ];
 
 function updateToDoListOnScreen() {
@@ -43,5 +43,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
       updateToDoListOnScreen();
     }
+
+    let deleteAllButton = document.getElementById('aufraeumen');
+    deleteAllButton.addEventListener('click', deleteAll);
   });
 });
+
+function deleteAll() {
+  let erledigteTodos = Array.from(document.getElementsByClassName('erledigt'));
+  erledigteTodos.forEach((element) => {
+    element.remove();
+    todos.forEach((x) => {
+      if (x.erledigt == 'true') {
+        todos.splice(todos.indexOf(x), 1);
+      }
+    });
+  });
+}
