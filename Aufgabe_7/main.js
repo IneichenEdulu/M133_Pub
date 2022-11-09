@@ -6,7 +6,7 @@ let todos = [
   // new ToDo('Hausaufgaben machen', true),
 ];
 
-function updateToDoListOnScreen() {
+export function updateToDoListOnScreen() {
   const todoListElement = document.getElementById('todolist');
 
   // Liste leeren
@@ -22,6 +22,8 @@ function updateToDoListOnScreen() {
   const offeneToDos = todos.filter((offen) => !offen.erledigt);
   const elementAnzahl = document.getElementById('anzahl');
   elementAnzahl.textContent = `${offeneToDos.length} ToDo's offen`;
+
+  localStorage.setItem('todos', JSON.stringify(todos))
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
