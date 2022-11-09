@@ -1,27 +1,29 @@
+import {updateToDoListOnScreen} from "./main.js";
+
 export class ToDo extends EventTarget {
-  #titel = '';
-  #erledigt = '';
+  titel = '';
+  erledigt = '';
 
   constructor(titel, erledigt) {
     super();
-    this.#titel = titel;
-    this.#erledigt = erledigt;
+    this.titel = titel;
+    this.erledigt = erledigt;
   }
 
   get titel() {
-    return this.#titel;
+    return this.titel;
   }
 
   set titel(titel) {
-    this.#titel = titel;
+    this.titel = titel;
   }
 
   get erledigt() {
-    return this.#erledigt;
+    return this.erledigt;
   }
 
   set erledigt(erledigt) {
-    this.#erledigt = erledigt;
+    this.erledigt = erledigt;
   }
 
   element() {
@@ -30,6 +32,17 @@ export class ToDo extends EventTarget {
     const checkboxElement = document.createElement('input');
     const spanElement = document.createElement('span');
     const buttonElement = document.createElement('button');
+
+    checkboxElement.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        listElement.className = 'erledigt';
+        this.erledigt = 'true';
+      } else {
+        listElement.className = '';
+        this.erledigt = 'false';
+      }
+      updateToDoListOnScreen();
+    });
 
     listElement.appendChild(divElement);
 
@@ -41,10 +54,10 @@ export class ToDo extends EventTarget {
 
     buttonElement.className = 'loeschen';
 
-    spanElement.innerText = this.#titel;
+    spanElement.innerText = this.titel;
     buttonElement.innerText = 'Löschen';
 
-    if (this.#erledigt) {
+    if (this.erledigt) {
       checkboxElement.setAttribute('checked', 'checked');
       divElement.className = 'erledigt';
     }
